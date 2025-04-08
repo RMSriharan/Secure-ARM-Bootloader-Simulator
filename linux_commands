@@ -1,0 +1,19 @@
+touch setup_bootloader.sh
+chmod +x setup_bootloader.sh
+#!/bin/bash
+
+# Step 1: Create project directory and enter it
+mkdir -p bootloader-sim && cd bootloader-sim
+
+# Step 2: Create required files
+touch main.c sha256.c sha256.h flash.c flash.h uart.c uart.h linker.ld Makefile signer.py kernel.img README.md
+
+# Step 3: Add dummy kernel content
+echo "Hello Kernel" > kernel.img
+
+# Step 4: Build the project
+make
+
+# Step 5: Run the bootloader in QEMU
+qemu-system-arm -M lm3s6965evb -nographic -kernel r.elf
+./setup_bootloader.sh
